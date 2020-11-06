@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const env = require('dotenv');
 
-const User = require('../models/user');
+const User = require('../../models/user');
 
 exports.signup = (req, res) => {
     User.findOne({ email: req.body.email })
@@ -11,11 +11,11 @@ exports.signup = (req, res) => {
         }
         if(user) {
             return res.status(400).json({
-                message: 'User already exist!',
+                message: 'Admin already exist!',
             });
         }
         const { firstName, lastName, email, password } = req.body;
-        const _user = new User({ firstName, lastName, email, password, userName: Math.random().toString() });
+        const _user = new User({ firstName, lastName, email, password, userName: Math.random().toString(), role: 'admin' });
 
         _user.save((error, data) => {
             if(error) {
@@ -25,7 +25,7 @@ exports.signup = (req, res) => {
             }
             if(data) {
                 return res.status(201).json({
-                    message: 'User created',
+                    message: 'Admin created',
                 });
             }
         });
@@ -40,7 +40,7 @@ exports.signin = (req, res) => {
         }
         if(user) {
 
-            if(user.authenticate(req.body.password)) {
+            if(user.authenticate(req.body.password) && user.role === 'admin') {
                 const token = jwt.sign({ _id: user._id }, process.env.JWT_SECRET, { expiresIn: '2h' });
                 const { _id, firstName, lastName, email, role, fullName, contactNumber } = user;
                 res.status(200).json({
