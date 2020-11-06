@@ -5,7 +5,7 @@ const mongoose = require('mongoose');
 
 const app = express();
 
-const UserRoutes = require('./routes/user');
+const UserRoutes = require('./routes/auth');
 
 
 // adding environment info into app
