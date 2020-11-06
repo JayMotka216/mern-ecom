@@ -13,8 +13,11 @@ env.config();
 
 mongoose.connect(
     `mongodb+srv://${process.env.MONGO_DB_USER}:${process.env.MONGO_DB_PASS}@mern-ecom.gcplj.mongodb.net/${process.env.MONGO_DB_DATABASE}?retryWrites=true&w=majority`,
-    { useNewUrlParser: true, useUnifiedTopology: true })
-    .then(() => {
+    { 
+        useNewUrlParser: true, 
+        useUnifiedTopology: true, 
+        useCreateIndex: true 
+    }).then(() => {
         console.log("Database Connected!");
     }).catch((e) => {
         console.log(e.message);
