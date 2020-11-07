@@ -1,13 +1,12 @@
 const express = require('express');
 const env = require('dotenv');
-const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 
 const app = express();
 
 const AuthRoutes = require('./routes/auth');
 const AdminRoutes = require('./routes/admin/auth');
-
+const CategoryRoutes = require('./routes/category');
 
 // adding environment info into app
 env.config();
@@ -24,10 +23,11 @@ mongoose.connect(
         console.log(e.message);
     });
 
-app.use(bodyParser());
+app.use(express.json());
 
 app.use('/api', AuthRoutes);
 app.use('/api', AdminRoutes);
+app.use('/api', CategoryRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log("Server is running");
