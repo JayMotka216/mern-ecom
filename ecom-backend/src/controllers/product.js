@@ -34,4 +34,13 @@ exports.createProduct = (req,res) => {
     });
 };
 
-exports.getProducts = (req,res) => {};
+exports.getProducts = (req,res) => {
+    Product.find({}).exec((error,products) => {
+        if(error) {
+            return res.status(400).json({ error });
+        }
+        if(products) {
+            return res.status(200).json({ products });
+        }
+    })
+};

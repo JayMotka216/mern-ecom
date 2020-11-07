@@ -8,6 +8,7 @@ const AuthRoutes = require('./routes/auth');
 const AdminRoutes = require('./routes/admin/auth');
 const CategoryRoutes = require('./routes/category');
 const ProductRoutes = require('./routes/product');
+const CartRoutes = require('./routes/cart');
 
 // adding environment info into app
 env.config();
@@ -30,6 +31,7 @@ app.use('/api', AuthRoutes);
 app.use('/api', AdminRoutes);
 app.use('/api', CategoryRoutes);
 app.use('/api', ProductRoutes);
+app.use('/api', CartRoutes);
 
 app.listen(process.env.PORT, () => {
     console.log("Server is running");
