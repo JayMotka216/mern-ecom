@@ -1,12 +1,12 @@
 const express = require('express');
 
-const { signup, signin, requireSignIn } = require('../controllers/auth');
+const { signup, signin } = require('../controllers/auth');
+const { validateSignUpRequest, validateSignInRequest, isRequestValidated } = require('../validators/auth');
 
-const user = express.Router();
+const route = express.Router();
 
-user.post('/signup', signup);
-
-user.post('/signin', signin );
+route.post('/signup', validateSignUpRequest, isRequestValidated, signup);
+route.post('/signin', validateSignInRequest, isRequestValidated, signin );
 
 // user.post('/profile', requireSignIn, (req, res) => {
 //     res.status(200).json({
@@ -14,4 +14,4 @@ user.post('/signin', signin );
 //     })
 // });
 
-module.exports = user;
+module.exports = route;
