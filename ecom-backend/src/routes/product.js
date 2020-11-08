@@ -16,7 +16,7 @@ const storage = multer.diskStorage({
       cb(null, shortId.generate() + '-' + file.originalname);
     }
 });   
-const upload = multer({ storage: storage })
+const upload = multer({ storage: storage });
 
 product.post('/product/create',requireSignIn, adminMiddleware, upload.array('productPicture'), createProduct);
 
