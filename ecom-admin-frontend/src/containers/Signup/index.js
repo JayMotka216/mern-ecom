@@ -11,6 +11,7 @@ function Signup(props) {
                 <Container style={{marginTop: '50px'}}>
                     <Row>
                         <Col md={{span: 6, offset: 3}}>
+                            <h1>Sign Up</h1><br/><hr/><br/>
                             <Form>
                                 <Row>
                                     <Col md={6}>
