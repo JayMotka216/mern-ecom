@@ -2,6 +2,7 @@ const express = require('express');
 const env = require('dotenv');
 const mongoose = require('mongoose');
 const path = require('path');
+const cors = require('cors');
 
 const app = express();
 
@@ -26,6 +27,7 @@ mongoose.connect(
         console.log(e.message);
     });
 
+app.use(cors());
 app.use(express.json());
 app.use('/public',express.static(path.join(__dirname, 'uploads')));
 

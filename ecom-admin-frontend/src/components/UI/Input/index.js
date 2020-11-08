@@ -5,7 +5,7 @@ function Input(props) {
     return(<>
         <Form.Group controlId={props.controlId}>
             <Form.Label>{props.lable}</Form.Label>
-            <Form.Control type={props.type} value={props.value} onChnage={props.onChnage} placeholder={props.placeholder} />
+            <Form.Control type={props.type} value={props.value} onChange={props.onChange} placeholder={props.placeholder} />
             <Form.Text className="text-muted">
                 {props.errorMessage}
             </Form.Text>

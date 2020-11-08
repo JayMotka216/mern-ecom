@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Layout from '../../components/Layout';
 import Input from '../../components/UI/Input';
@@ -9,18 +9,24 @@ import { Login } from '../../actions';
 import { useDispatch } from 'react-redux';
 
 function Signin(props) {
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState();
+
     const dispatch = useDispatch();
 
     const userLogin = (e) => {
         e.preventDefault();
 
         const user = {
-            email: 'xyz@gmail.com',
-            password: 'abcxyz216'
+            email: email,
+            password: password
         };
 
         dispatch(Login(user));
     };
+
+    const isNotValid = email === '' || password === '' || password.length <8 || password.length >16;
 
     return (
         <>
@@ -30,11 +36,11 @@ function Signin(props) {
                         <Col md={{span: 6, offset: 3}}>
                             <h1>Sign In</h1><br/><hr/><br/>
                             <Form onSubmit={userLogin}>
-                                <Input controlId="formEmail" lable="Email" placeholder="Enter Email" value="" type="email" onChange={() => {}} />
+                                <Input controlId="formEmail" lable="Email" placeholder="Enter Email" value={email} type="email" onChange={(e) => setEmail(e.target.value)} />
 
-                                <Input controlId="formPassword" lable="Password" placeholder="Enter Password" value="" type="password" onChange={() => {}} />
+                                <Input controlId="formPassword" lable="Password" placeholder="Enter Password" value={password} type="password" onChange={(e) => setPassword(e.target.value)} />
 
-                                <Button variant="primary" type="submit">
+                                <Button variant="primary" type="submit" disabled={isNotValid}>
                                     Sign In
                                 </Button>
                             </Form> 
