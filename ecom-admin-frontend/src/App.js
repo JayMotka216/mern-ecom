@@ -1,11 +1,14 @@
 import React, { useEffect } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import PrivateRoute from './components/HOC/PrivateRoute';
 
 import Home from './containers/Home';
 import Signin from './containers/Signin';
 import Signup from './containers/Signup';
-import PrivateRoute from './components/HOC/PrivateRoute';
+import Product from './containers/Products';
+import Order from './containers/Orders';
+
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn } from './actions';
 
@@ -25,6 +28,8 @@ function App() {
         <Switch>
           <Route path='/signin' exact component={Signin} />
           <Route path='/signup' exact component={Signup} />
+          <PrivateRoute path='/products' component={Product} />
+          <PrivateRoute path='/orders' component={Order} />
           <PrivateRoute path='/' exact component={Home} />
         </Switch>
       </Router>

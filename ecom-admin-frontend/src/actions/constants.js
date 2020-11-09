@@ -3,6 +3,8 @@ export const authConstant = {
     LOGIN_FAILURE: 'LOGIN_FAILURE' ,
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     SIGNOUT_REQUEST: 'SIGNOUT_REQUEST',
+    SIGNOUT_SUCCESS: 'SIGNOUT_SUCCESS',
+    SIGNOUT_FAILURE: 'SIGNOUT_FAILURE',
 }
 
 export const registerConstant = {

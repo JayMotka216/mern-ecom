@@ -10,6 +10,9 @@ const initialState = {
     },
     authenticate: false,
     authenticating: false,
+    loading: false,
+    error: null,
+    message: '',
 };
     
 export default function authReducer(state = initialState, action) {
@@ -21,7 +24,11 @@ export default function authReducer(state = initialState, action) {
         case authConstant.LOGIN_FAILURE:
             return { ...state, authenticate: false, authenticating: false, ...action.payload }
         case authConstant.SIGNOUT_REQUEST:
-            return { ...initialState}
+            return { ...state, loading: true}
+        case authConstant.SIGNOUT_SUCCESS:
+            return { ...initialState, loading: false }
+        case authConstant.SIGNOUT_FAILURE:
+            return { ...state, ...action.payload, loading: false }
         default:
             return state;
     }
