@@ -1,5 +1,5 @@
 import axiosInstant from "../helpers/axios";
-import { authConstant } from "./constants"
+import { authConstant } from "./constants";
 
 export const Login = (user) => {
     return async (dispatch) => {
@@ -50,5 +50,14 @@ export const isUserLoggedIn = () => {
                 payload: { error: 'Failed to Login!' }
             });
         }
+    }
+}
+
+export const signOut = () => {
+    return async dispatch => {
+        localStorage.clear();
+        dispatch({
+            type: authConstant.SIGNOUT_REQUEST,
+        })
     }
 }

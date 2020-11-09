@@ -20,6 +20,8 @@ export default function authReducer(state = initialState, action) {
             return { ...state, authenticate: true, authenticating: false, ...action.payload }
         case authConstant.LOGIN_FAILURE:
             return { ...state, authenticate: false, authenticating: false, ...action.payload }
+        case authConstant.SIGNOUT_REQUEST:
+            return { ...initialState}
         default:
             return state;
     }
