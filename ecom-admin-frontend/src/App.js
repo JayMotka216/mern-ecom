@@ -8,6 +8,7 @@ import Signin from './containers/Signin';
 import Signup from './containers/Signup';
 import Product from './containers/Products';
 import Order from './containers/Orders';
+import Category from './containers/Category';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { isUserLoggedIn } from './actions';
@@ -30,6 +31,7 @@ function App() {
           <Route path='/signup' exact component={Signup} />
           <PrivateRoute path='/products' component={Product} />
           <PrivateRoute path='/orders' component={Order} />
+          <PrivateRoute path='/category' component={Category} />
           <PrivateRoute path='/' exact component={Home} />
         </Switch>
       </Router>

@@ -3,8 +3,8 @@ import Layout from '../../components/Layout';
 
 function Order(props) {
     return(
-        <Layout sidebar>
-            Orders
+        <Layout sidebar title="Orders">
+            
         </Layout>
     );
 }

@@ -3,8 +3,8 @@ import Layout from '../../components/Layout';
 
 function Product(props) {
     return(
-        <Layout sidebar>
-            Products
+        <Layout sidebar title="Products">
+            
         </Layout>
     );
 }
