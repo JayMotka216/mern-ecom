@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Col, Container, Row, Modal, Button } from 'react-bootstrap';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { addCategory, getAllCategory } from '../../actions';
+import { addCategory } from '../../actions';
 
 import Layout from '../../components/Layout';
 import Input from '../../components/UI/Input';
@@ -23,16 +23,15 @@ function Category(props) {
         form.append('parentId', parentId);
         form.append('categoryImg', categoryImg);
 
-        dispatch(addCategory(form));
-        //dispatch(getAllCategory());
-        
+        if(categoryName !== ''){
+            dispatch(addCategory(form));
+            setCategoryName('');
+            setParentId('');
+            setCategoryImg();
+        }
         setShow(false);
     }
     const handleShow = () => setShow(true);
-
-    useEffect(() => {
-        dispatch(getAllCategory());
-    }, []);
 
     const renderCategories = (categories) => {
         let mycategories = [];
@@ -56,7 +55,6 @@ function Category(props) {
                 createCategoryList(category.children, options);
             }
         }
-
         return options;
     }
 

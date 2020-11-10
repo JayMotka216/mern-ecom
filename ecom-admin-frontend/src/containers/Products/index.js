@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import Layout from '../../components/Layout';
 import Input from '../../components/UI/Input';
 import { Col, Container, Row, Modal, Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct, getAllCategory } from '../../actions';
+import { addProduct } from '../../actions';
 
 function Product(props) {
     const dispatch = useDispatch();
-    const categories = useSelector(state => state.category);
+    const category = useSelector(state => state.category);
 
     const [name, setName] = useState('');
     const [quantity, setQuantity] = useState('');
@@ -28,20 +28,24 @@ function Product(props) {
         for(let pic of productPicture) {
             form.append('productPicture',pic);
         }
-        dispatch(addProduct(form));
+        if(name !== '' || categoryId !== ''){
+            dispatch(addProduct(form));
+            setName('');
+            setCategoryId('');
+            setDescription('');
+            setPrice('');
+            setProductPicture([]);
+            setQuantity('');
+        }
         setShow(false);
     }
     const handleShow = () => setShow(true);
 
-    useEffect(() => {
-        dispatch(getAllCategory());
-    }, []);
-
-    const createCategoryList = (categories, options = []) => {
+    const categoryList = (categories, options = []) => {
         for(let category of categories) {
             options.push({ value: category._id, name: category.name });
             if(category.children.length > 0){
-                createCategoryList(category.children, options);
+                categoryList(category.children, options);
             }
         }
         return options;
@@ -72,7 +76,7 @@ function Product(props) {
 
                             <select className="form-control my-3" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
                                 <option value="" key="none">Select Category</option>
-                                {createCategoryList(categories.categories).map((option) => <option value={option.value} key={option.value}>{option.name}</option> )}
+                                {categoryList(category.categories).map((option) => <option value={option.value} key={option.value}>{option.name}</option> )}
                             </select>
                             
                             <Input lable="Product Images" type="file" onChange={(e) => setProductPicture([...productPicture, e.target.files[0]])} /><hr/>

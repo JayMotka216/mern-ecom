@@ -8,11 +8,22 @@ const initState = {
 
 const buildNewCategory = (parentId, categories, category) => {
     const mycategory = [];
+    if(parentId === undefined){
+        return [
+            ...categories,
+            {
+                _id: category._id,
+                name: category.name,
+                slug: category.slug,
+                children: [],
+            }
+        ];
+    }
     for(let cat of categories) {
         if(cat._id === parentId) {
             mycategory.push({
                 ...cat,
-                children: cat.children && cat.children.length > 0 ? buildNewCategory(parentId, [...cat.children, {
+                children: cat.children ? buildNewCategory(parentId, [...cat.children, {
                     _id: category._id,
                     name: category.name,
                     parentId: category.parentId,
@@ -23,11 +34,10 @@ const buildNewCategory = (parentId, categories, category) => {
         } else {
             mycategory.push({
                 ...cat,
-                children: cat.children && cat.children.length > 0 ? buildNewCategory(parentId, cat.children, category) : [],
+                children: cat.children ? buildNewCategory(parentId, cat.children, category) : [],
             });
         }
     }
-
     return mycategory;
 }
 

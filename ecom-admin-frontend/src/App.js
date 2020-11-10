@@ -11,16 +11,18 @@ import Order from './containers/Orders';
 import Category from './containers/Category';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { isUserLoggedIn } from './actions';
+import { getAllCategory, isUserLoggedIn } from './actions';
 
 function App() {
   const dispatch = useDispatch();
   const auth = useSelector(state => state.auth);
+  const category = useSelector(state => state.category);
 
   useEffect(() => {
     if (!auth.authenticate) {
       dispatch(isUserLoggedIn());
     }
+    dispatch(getAllCategory());
   }, []);
 
   return (

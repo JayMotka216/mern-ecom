@@ -37,7 +37,7 @@ function Layout(props) {
                             </div>
                         </nav>
 
-                        <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                        <main role="main" className="col-md-9 ml-sm-auto col-lg-10 px-md-4" style={{paddingTop : '60px'}}>
                             <div className="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                                 <h1 className="h2">{props.title}</h1>
                             </div>

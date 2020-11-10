@@ -60,6 +60,8 @@ export const signOut = () => {
 
         if(res.status === 200){
             localStorage.clear();
+            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             dispatch({
                 type: authConstant.SIGNOUT_SUCCESS,
             });
