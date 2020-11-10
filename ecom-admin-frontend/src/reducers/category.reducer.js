@@ -6,6 +6,31 @@ const initState = {
     categories: [],
 }
 
+const buildNewCategory = (parentId, categories, category) => {
+    const mycategory = [];
+    for(let cat of categories) {
+        if(cat._id === parentId) {
+            mycategory.push({
+                ...cat,
+                children: cat.children && cat.children.length > 0 ? buildNewCategory(parentId, [...cat.children, {
+                    _id: category._id,
+                    name: category.name,
+                    parentId: category.parentId,
+                    slug: category.slug,
+                    children: category.children,
+                }], category) : [],
+            });
+        } else {
+            mycategory.push({
+                ...cat,
+                children: cat.children && cat.children.length > 0 ? buildNewCategory(parentId, cat.children, category) : [],
+            });
+        }
+    }
+
+    return mycategory;
+}
+
 export default function categoryReducer(state = initState, action) {
     switch(action.type) {
         case categoryConstant.GET_CATEGORY_REQUEST:
@@ -17,7 +42,7 @@ export default function categoryReducer(state = initState, action) {
         case categoryConstant.POST_CATEGORY_REQUEST:
             return {...state, loading: true}
         case categoryConstant.POST_CATEGORY_SUCCESS:
-            return {...state, loading: false}
+            return {...state, categories: buildNewCategory(action.payload.category.parentId, state.categories, action.payload.category), loading: false}
         case categoryConstant.POST_CATEGORY_FAILURE:
             return {...state, ...action.payload, loading:false}
         default:

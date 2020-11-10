@@ -24,7 +24,8 @@ function Category(props) {
         form.append('categoryImg', categoryImg);
 
         dispatch(addCategory(form));
-
+        //dispatch(getAllCategory());
+        
         setShow(false);
     }
     const handleShow = () => setShow(true);
