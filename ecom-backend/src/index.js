@@ -11,6 +11,7 @@ const AdminRoutes = require('./routes/admin/auth');
 const CategoryRoutes = require('./routes/category');
 const ProductRoutes = require('./routes/product');
 const CartRoutes = require('./routes/cart');
+const InitialDataRoutes = require('./routes/admin/initialData');
 
 // adding environment info into app
 env.config();
@@ -32,6 +33,7 @@ app.use(express.json());
 app.use('/public',express.static(path.join(__dirname, 'uploads')));
 
 app.use('/api', AuthRoutes);
+app.use('/api', InitialDataRoutes)
 app.use('/api', AdminRoutes);
 app.use('/api', CategoryRoutes);
 app.use('/api', ProductRoutes);

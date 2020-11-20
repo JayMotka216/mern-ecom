@@ -5,7 +5,7 @@ export const getAllProduct = () => {
     return async (dispatch) => {
 
         dispatch({ type: productConstant.GET_PRODUCT_REQUEST });
-        const res = await axiosInstant.get('/product/getProducts');
+        const res = await axiosInstant.post('/product/getProducts');
 
         const { products } = res.data;
         if(res.status === 200){

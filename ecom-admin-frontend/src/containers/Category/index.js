@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Col, Container, Row, Modal, Button } from 'react-bootstrap';
+import { Col, Container, Row, Button } from 'react-bootstrap';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { addCategory } from '../../actions';
 
 import Layout from '../../components/Layout';
 import Input from '../../components/UI/Input';
+import NewModal from '../../components/UI/Modal';
 
 function Category(props) {
 
@@ -69,23 +70,16 @@ function Category(props) {
                     </Col>
                     <Col md={2}><Button className="btn btn-primary ml-5" onClick={handleShow}>Add Category</Button></Col>
                     <>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                        <Modal.Title>Add Category</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Input lable="Category Name" type="text" value={categoryName} placeholder="Category Name" onChange={(e) => setCategoryName(e.target.value)} />
+                    <NewModal show={show} handleClose={handleClose} handleShow={handleShow} title="Add New Category" >
+                        <Input lable="Category Name" type="text" value={categoryName} placeholder="Category Name" onChange={(e) => setCategoryName(e.target.value)} />
 
-                            <select className="form-control my-3" value={parentId} onChange={(e) => setParentId(e.target.value)}>
-                                <option value="" key="none">Select Parent Category</option>
-                                {createCategoryList(category.categories).map((option) => <option value={option.value} key={option.value}>{option.name}</option> )}
-                            </select>
-                            
-                            <Input lable="Category Image" type="file" onChange={(e) => setCategoryImg(e.target.files[0])} /><hr/>
-                            
-                            <Button type="submit" variant="primary" onClick={handleClose}>Add</Button>
-                        </Modal.Body>
-                    </Modal>
+                        <select className="form-control my-3" value={parentId} onChange={(e) => setParentId(e.target.value)}>
+                            <option value="" key="none">Select Parent Category</option>
+                            {createCategoryList(category.categories).map((option) => <option value={option.value} key={option.value}>{option.name}</option> )}
+                        </select>
+                        
+                        <Input lable="Category Image" type="file" onChange={(e) => setCategoryImg(e.target.files[0])} /><hr/>
+                    </NewModal>
                     </>
                 </Row>
             </Container>

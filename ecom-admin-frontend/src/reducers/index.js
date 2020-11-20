@@ -8,9 +8,9 @@ import productReducer from './product.reducer';
 const rootReducer = combineReducers({
     auth: authReducer,
     user: userReducer,
-    order: orderReducer,
-    category: categoryReducer,
     product: productReducer,
+    category: categoryReducer,
+    order: orderReducer,
 });
 
 export default rootReducer;

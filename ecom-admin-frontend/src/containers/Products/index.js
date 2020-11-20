@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../../components/Layout';
 import Input from '../../components/UI/Input';
-import { Col, Container, Row, Modal, Button } from 'react-bootstrap';
+import NewModal from '../../components/UI/Modal'
+import { Col, Container, Row, Button, Table } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { addProduct } from '../../actions';
+import { addProduct, getAllProduct } from '../../actions';
 
 function Product(props) {
     const dispatch = useDispatch();
@@ -50,44 +51,63 @@ function Product(props) {
         }
         return options;
     }
+    
+    const renderProducts = () => {
+        return (
+            <Table responsive="sm" striped hover bordered variant="dark">
+                <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Stock</th>
+                    <th>Description</th>
+                    <th>Category</th>
+                </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                        <td>Table cell</td>
+                    </tr>
+                </tbody>
+            </Table>
+        );
+    }
 
     return(
         <Layout sidebar title="Products">
             <Container fluid>
                 <Row>
                     <Col md={10} className="border-right border-bottom">
-                        <ul>
-                        </ul>
+                        {renderProducts()}
                     </Col>
                     <Col md={2}><Button className="btn btn-primary ml-5" onClick={handleShow}>Add Product</Button></Col>
                     <>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                        <Modal.Title>Add Product</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Input lable="Product Name" type="text" value={name} placeholder="Product Name" onChange={(e) => {setName(e.target.value)}} />
+                    <NewModal show={show} handleClose={handleClose} handleShow={handleShow} title="Add New Product" >
+                        <Input lable="Product Name" type="text" value={name} placeholder="Product Name" onChange={(e) => {setName(e.target.value)}} />
                             
-                            <Input lable="Price" type="text" value={price} placeholder="Product Price" onChange={(e) => {setPrice(e.target.value)}} />
-                            
-                            <Input lable="Quantity" type="text" value={quantity} placeholder="Quantity" onChange={(e) => {setQuantity(e.target.value)}} />
-                            
-                            <Input lable="Description" type="text" value={description} placeholder="Product Description" onChange={(e) => {setDescription(e.target.value)}} />
+                        <Input lable="Price" type="text" value={price} placeholder="Product Price" onChange={(e) => {setPrice(e.target.value)}} />
+                        
+                        <Input lable="Quantity" type="text" value={quantity} placeholder="Quantity" onChange={(e) => {setQuantity(e.target.value)}} />
+                        
+                        <Input lable="Description" type="text" value={description} placeholder="Product Description" onChange={(e) => {setDescription(e.target.value)}} />
 
-                            <select className="form-control my-3" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-                                <option value="" key="none">Select Category</option>
-                                {categoryList(category.categories).map((option) => <option value={option.value} key={option.value}>{option.name}</option> )}
-                            </select>
-                            
-                            <Input lable="Product Images" type="file" onChange={(e) => setProductPicture([...productPicture, e.target.files[0]])} /><hr/>
+                        <select className="form-control my-3" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                            <option value="" key="none">Select Category</option>
+                            {categoryList(category.categories).map((option) => <option value={option.value} key={option.value}>{option.name}</option> )}
+                        </select>
+                        
+                        <Input lable="Product Images" type="file" onChange={(e) => setProductPicture([...productPicture, e.target.files[0]])} /><hr/>
 
-                            <ul>{
-                                productPicture.length > 0 ? productPicture.map((pic, index) => <li key={index}>{JSON.stringify(pic.name)}</li>) : null
-                            }</ul>
-                            
-                            <Button type="submit" variant="primary" onClick={handleClose}>Add</Button>
-                        </Modal.Body>
-                    </Modal>
+                        <ul>{
+                            productPicture.length > 0 ? productPicture.map((pic, index) => <li key={index}>{JSON.stringify(pic.name)}</li>) : null
+                        }</ul>
+                    </NewModal>
                     </>
                 </Row>
             </Container>

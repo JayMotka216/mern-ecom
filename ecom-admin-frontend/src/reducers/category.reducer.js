@@ -1,6 +1,6 @@
 import { categoryConstant } from "../actions/constants"
 
-const initState = {
+const initialState = {
     loading: false,
     error: null,
     categories: [],
@@ -29,7 +29,7 @@ const buildNewCategory = (parentId, categories, category) => {
                     parentId: category.parentId,
                     slug: category.slug,
                     children: category.children,
-                }], category) : [],
+                }], category) : []
             });
         } else {
             mycategory.push({
@@ -41,7 +41,7 @@ const buildNewCategory = (parentId, categories, category) => {
     return mycategory;
 }
 
-export default function categoryReducer(state = initState, action) {
+export default function categoryReducer(state = initialState, action) {
     switch(action.type) {
         case categoryConstant.GET_CATEGORY_REQUEST:
             return {...state, loading: true}
@@ -56,6 +56,6 @@ export default function categoryReducer(state = initState, action) {
         case categoryConstant.POST_CATEGORY_FAILURE:
             return {...state, ...action.payload, loading:false}
         default:
-            return initState;
+            return initialState;
     }
 }
